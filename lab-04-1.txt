@@ -37,6 +37,7 @@ for i in range(1000+1):
     if i % 50 == 0:
         print("{:5} | {:10.6f} | {:10.4f} | {:10.4f} | {:10.6f}".format(
           i, cost.numpy(), W1.numpy()[0], W2.numpy()[0], b.numpy()[0]))
+     # i % 50 == 0 이면 
 
 x_data = [
     [1., 0., 3., 0., 5.],
