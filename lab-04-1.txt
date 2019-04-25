@@ -19,6 +19,7 @@ b  = tf.Variable(tf.random_uniform([1], -10.0, 10.0))
 #W1와 W2와 b에 -10 부터 10 까지 랜덤한 값을 주겠다
 
 learning_rate = tf.Variable(0.001)
+#학습률 정의
 
 for i in range(1000+1):
     with tf.GradientTape() as tape:
@@ -90,19 +91,20 @@ b = tf.Variable(tf.random_normal([1]))
 
 # Create an optimizer
 optimizer = tf.train.GradientDescentOptimizer(learning_rate=0.01)
-
+# 미분을 통해 최저 비용을 향해 진행하도록 만드는 핵심 함수 이때 rate를 전달했기 때문에 매번 0.01만큼씩 내려가게 됨
 n_epoch = 1000+1
+#n_epoch 값 정의
 print("epoch | cost")
+#출력
 for i in range(n_epoch):
-    # Use tf.GradientTape() to record the gradient of the cost function
     with tf.GradientTape() as tape:
+     #tf.GradientTape() 는 cost 함수의 gradient를 기록할때 사용함
         y_pred = tf.matmul(X, W) + b
         cost = tf.reduce_mean(tf.square(y_pred - y))
 
     # calculates the gradients of the loss
-    grads = tape.gradient(cost, [W, b])
+    #손실의 gradient를 계산
     
-    # updates parameters (W and b)
     optimizer.apply_gradients(grads_and_vars=zip(grads, [W, b]))
     if i % 50 == 0:
         print("{:5} | {:10.6f}".format(i, cost.numpy()))
