@@ -1,6 +1,6 @@
 import tensorflow as tf
 import numpy as np
-
+#numpy 라이브러리를 np라는 이름으로 반입
 tf.enable_eager_execution()
 #그래프 기반 모드에서 즉시 실행 (Eager Execution) 모드로 변경
 tf.__version__
@@ -19,13 +19,16 @@ b  = tf.Variable(tf.random_uniform([1], -10.0, 10.0))
 #W1와 W2와 b에 -10 부터 10 까지 랜덤한 값을 주겠다
 
 learning_rate = tf.Variable(0.001)
-#학습률 정의
+#학습률 입력
 
 for i in range(1000+1):
     with tf.GradientTape() as tape:
+    #tape에 계산 과정을 기록해두었다가 tape.gradient를 이용해서 미분을 자동으로 구할 수 있음
         hypothesis = W1 * x1_data + W2 * x2_data + b
         cost = tf.reduce_mean(tf.square(hypothesis - y_data))
+        #hypothesis 와 cost 함수 정의
     W1_grad, W2_grad, b_grad = tape.gradient(cost, [W1, W2, b])
+    #경사를 계산하기 위해서 테이프를 뒤로 감아서 재생 , 단하나의 경사만 계산 
     W1.assign_sub(learning_rate * W1_grad)
     W2.assign_sub(learning_rate * W2_grad)
     b.assign_sub(learning_rate * b_grad)
@@ -38,12 +41,16 @@ x_data = [
     [1., 0., 3., 0., 5.],
     [0., 2., 0., 4., 0.]
 ]
+#x_data 값 입력
 y_data  = [1, 2, 3, 4, 5]
+#y_data 값 입력
 
 W = tf.Variable(tf.random_uniform([1, 2], -1.0, 1.0))
 b = tf.Variable(tf.random_uniform([1], -1.0, 1.0))
+#난수 W와 b 생성
 
 learning_rate = tf.Variable(0.001)
+#학습률 입력
 
 for i in range(1000+1):
     with tf.GradientTape() as tape:
