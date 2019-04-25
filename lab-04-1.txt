@@ -160,4 +160,4 @@ for i in range(1000+1):
     #w1,w2,w3 와 b의 값을 업데이트
     if i % 50 == 0:
       print("{:5} | {:12.4f}".format(i, cost.numpy()))
-    # i % 50이 0이면 
+    # i % 50이 0이면 출력
